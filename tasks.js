@@ -1,31 +1,25 @@
-const submit = document.getElementById("submit");
-const newTask = document.getElementById("task");
-const tasksList = document.getElementById("tasks");
+const tasksDisplayList = document.getElementById('tasks')
+const taskInput = document.getElementById('task')
+const submitBtn = document.getElementById('submitBtn')
 
+taskInput.addEventListener('input', () => {
+  submitBtn.disabled = !taskInput.value.trim()
+})
 
-newTask.addEventListener("input", () => {
-  submit.disabled = !newTask.value.trim();
-});
+document.querySelector('form').addEventListener('submit', addTask)
 
-document.querySelector("form").addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent default form submission
-
-  const task = newTask.value.trim();
+function addTask(e) {
+  e.preventDefault()
+  const task = taskInput.value.trim()
 
   if (task) {
-    const listItem = document.createElement("li");
-    listItem.textContent = task;
+    const listItem = document.createElement('li')
+    listItem.textContent = task
 
-    tasksList.appendChild(listItem);
+    tasksDisplayList.appendChild(listItem)
 
-    newTask.value = "";
+    taskInput.value = ''
 
-    submit.disabled = true;
-  }
-});
-
-function removeTask(event) {
-  if (event.target.tagName === "LI") {
-    event.target.remove();
+    submitBtn.disabled = true
   }
 }
